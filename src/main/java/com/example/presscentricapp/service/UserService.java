@@ -99,7 +99,7 @@ public class UserService {
         if (input.getEmail() != null
                 && !input.getEmail().isEmpty()
                 && !input.getEmail().equalsIgnoreCase(userDao.getEmail())) {
-            userDao.setName(input.getEmail());
+            userDao.setEmail(input.getEmail());
         }
 
         UserEntity userEntity = userMapper.userDaoToUserEntity(userDao);
@@ -116,7 +116,6 @@ public class UserService {
      * @throws ApplicationException if the provided user ID is invalid or the user is not found.
      */
     public UserDao deleteUser(Integer id) {
-        validationCheck.isIntegerParamValid(id);
         UserDao userDao = this.getUserById(id);
 
         userRepository.deleteById(userDao.getId());

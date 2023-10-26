@@ -3,6 +3,8 @@
  */
 package com.example.presscentricapp.exception;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * Custom application error class that extends the base Error class.
  */
@@ -15,7 +17,8 @@ public class ApplicationError extends Error {
      * @return An error message indicating that no user with the given ID was found.
      */
     public static Error noUserWithId(Integer id) {
-        return new Error(ApplicationErrorMessage.USER_WITH_ID_NOT_FOUND.getMessage().concat(id.toString()));
+        String stringId = getString(id);
+        return new Error(ApplicationErrorMessage.USER_WITH_ID_NOT_FOUND.getMessage().concat(stringId));
     }
 
     /**
@@ -44,6 +47,18 @@ public class ApplicationError extends Error {
      * @return An error message indicating an invalid integer input parameter.
      */
     public static Error invalidIntegerInputParam(Integer id) {
-        return new Error(ApplicationErrorMessage.INVALID_INTEGER_INPUT_PARAM.getMessage().concat(id.toString()));
+        String stringId = getString(id);
+        return new Error(ApplicationErrorMessage.INVALID_INTEGER_INPUT_PARAM.getMessage().concat(stringId));
+    }
+
+    @NotNull
+    private static String getString(Integer id) {
+        String stringId;
+        if (id == null) {
+            stringId = "";
+        } else {
+            stringId = id.toString();
+        }
+        return stringId;
     }
 }
